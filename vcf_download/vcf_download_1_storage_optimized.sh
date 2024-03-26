@@ -18,6 +18,10 @@ sample_set="AG1000G-CD"
 # Create the directory structure for metadata
 mkdir -pv $HOME/vo_agam_release/v3/metadata/
 
+# Create the directory structure for VCF files
+mkdir -p $HOME/vcf_files
+
+
 # Sync the metadata using gsutil
 gsutil -m rsync -r gs://vo_agam_release/v3/metadata/ $HOME/vo_agam_release/v3/metadata/
 
