@@ -4,7 +4,6 @@
 #SBATCH --output=vcf_anopheles_download_test1.out
 #SBATCH --error=vcf_anopheles_download_test1.err
 #SBATCH --nodes=1
-#SBATCH --partition=CPU
 #SBATCH --ntasks=8
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=10G
@@ -39,6 +38,7 @@ if [[ -f "$csv_file" ]]; then
 
     # Read the temporary CSV file line by line, excluding the header
     tail -n +2 temp_head.csv | while IFS=, read -r sample_id remainder; do
+    
         # Use wget to download the .vcf.gz files for each sample_id and save them in the vcf_files directory
         wget --no-clobber -P $HOME/vcf_files "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz"
         
