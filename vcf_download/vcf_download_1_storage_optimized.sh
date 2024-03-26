@@ -27,8 +27,11 @@ cd ~/vo_agam_release/v3/metadata/general/$sample_set/
 # Check if the metadata CSV exists and then proceed
 csv_file="samples.meta.csv"
 if [[ -f "$csv_file" ]]; then
-    # Get the first ten lines of the metadata CSV file and save it temporarily
+    # Get the first eleven lines of the metadata CSV file and save it temporarily
     head -n 11 "$csv_file" > temp_head.csv
+
+    # Initialize an empty VCF file for concatenation
+    touch $HOME/vcf_files/combined_chr3.vcf.gz
 
     # Read the temporary CSV file line by line, excluding the header
     tail -n +2 temp_head.csv | while IFS=, read -r sample_id remainder; do
@@ -40,6 +43,15 @@ if [[ -f "$csv_file" ]]; then
         
         # Delete the original file
         rm $HOME/vcf_files/$sample_id.vcf.gz
+
+        # Concatenate the new file with the combined file
+        bcftools concat $HOME/vcf_files/combined_chr3.vcf.gz $HOME/vcf_files/${sample_id}_chr3.vcf.gz -o $HOME/vcf_files/temp_combined.vcf.gz -O z
+
+        # Move the temporary file to the original file for the next iteration
+        mv $HOME/vcf_files/temp_combined.vcf.gz $HOME/vcf_files/combined_chr3.vcf.gz
+
+        # Delete the new file
+        rm $HOME/vcf_files/${sample_id}_chr3.vcf.gz
     done
     
     # Clean up the temporary file
@@ -48,12 +60,3 @@ else
     echo "The metadata CSV file does not exist."
     exit 1
 fi
-
-### Combine VCF files for chromosome x ###
-cd $HOME/vcf_files
-
-# Combine filtered files
-bcftools concat *_chr1.vcf.gz -o combined_chr3.vcf.gz -O z
-
-# Delete original files 
-rm *_chr3.vcf.gz
