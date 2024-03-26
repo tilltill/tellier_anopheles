@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#SBATCH --job-name=vcf_anopheles_download_test1
+#SBATCH --output=vcf_anopheles_download_test1.out
+#SBATCH --error=vcf_anopheles_download_test1.err
+#SBATCH --nodes=1
+#SBATCH --partition=CPU
+#SBATCH --ntasks=8
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=10G
+
+
 ### Download VCF files ###
 
 # Set the sample_set variable
