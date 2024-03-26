@@ -41,6 +41,9 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
     
         # Use wget to download the .vcf.gz files for each sample_id and save them in the vcf_files directory
         wget --no-clobber -P $HOME/vcf_files "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
+
+        # Download the corresponding index file
+        wget --no-clobber -P $HOME/vcf_files "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz.tbi"; exit 1; }
         
         # Filter for chromosome 3 and save the output to a new file
         bcftools view -r 3 $HOME/vcf_files/$sample_id.vcf.gz -o $HOME/vcf_files/${sample_id}_chr3.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
