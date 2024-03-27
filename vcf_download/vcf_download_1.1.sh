@@ -14,15 +14,17 @@
 # Set the sample_set variable
 sample_set="AG1000G-CD"
 
+# gsutil not installed on server, so I uploaded the metadata files to the server manually
+
 # Create the directory structure for metadata
-mkdir -pv $HOME/vo_agam_release/v3/metadata/
+#mkdir -pv $HOME/vo_agam_release/v3/metadata/
 
 # Create the directory structure for VCF files
-mkdir -p $HOME/vcf_files
+#mkdir -p $HOME/vcf_files
 
 
 # Sync the metadata using gsutil
-gsutil -m rsync -r gs://vo_agam_release/v3/metadata/ $HOME/vo_agam_release/v3/metadata/
+#gsutil -m rsync -r gs://vo_agam_release/v3/metadata/ $HOME/vo_agam_release/v3/metadata/
 
 # Change directory to the appropriate metadata directory
 cd ~/vo_agam_release/v3/metadata/general/$sample_set/
@@ -45,17 +47,17 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         # Download the corresponding index file
         #wget --no-clobber -P $HOME/vcf_files "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz.tbi"; exit 1; }
         
-        # Filter for chromosome 3 and save the output to a new file
-        bcftools view -r 3 $HOME/vcf_files/$sample_id.vcf.gz -o $HOME/vcf_files/${sample_id}_chr3.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
+        # Merge the new file with the combined file for chromosome 3
+        bcftools merge $HOME/vcf_files/combined_chr3.vcf.gz $HOME/vcf_files/$sample_id.vcf.gz -Oz -r 3 -o merged_files.vcf.gz
         
         # Delete the original file
         rm $HOME/vcf_files/$sample_id.vcf.gz
 
         # Concatenate the new file with the combined file
-        bcftools concat $HOME/vcf_files/combined_chr3.vcf.gz $HOME/vcf_files/${sample_id}_chr3.vcf.gz -o $HOME/vcf_files/temp_combined.vcf.gz -O z || { echo "Failed to concatenate $sample_id.vcf.gz"; exit 1; }
+        #bcftools concat $HOME/vcf_files/combined_chr3.vcf.gz $HOME/vcf_files/${sample_id}_chr3.vcf.gz -o $HOME/vcf_files/temp_combined.vcf.gz -O z || { echo "Failed to concatenate $sample_id.vcf.gz"; exit 1; }
 
         # Move the temporary file to the original file for the next iteration
-        mv $HOME/vcf_files/temp_combined.vcf.gz $HOME/vcf_files/combined_chr3.vcf.gz
+        #mv $HOME/vcf_files/temp_combined.vcf.gz $HOME/vcf_files/combined_chr3.vcf.gz
 
         # Delete the new file
         rm $HOME/vcf_files/${sample_id}_chr3.vcf.gz
