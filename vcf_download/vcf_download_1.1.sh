@@ -48,7 +48,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         #wget --no-clobber -P $HOME/vcf_files "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz.tbi"; exit 1; }
         
         # Merge the new file with the combined file for chromosome 3
-        bcftools merge $HOME/vcf_files/combined_chr3.vcf.gz $HOME/vcf_files/$sample_id.vcf.gz -Oz -r 3 -o merged_files.vcf.gz
+        bcftools merge $HOME/vcf_files/combined_chr3.vcf.gz $HOME/vcf_files/$sample_id.vcf.gz -Oz -r 3 -o $HOME/vcf_files/combined_chr3.vcf.gz
         
         # Delete the original file
         rm $HOME/vcf_files/$sample_id.vcf.gz
