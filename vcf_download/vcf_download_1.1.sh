@@ -29,7 +29,7 @@ sample_set="AG1000G-CD"
 # Change directory to the appropriate metadata directory
 cd ~/vo_agam_release/v3/metadata/general/$sample_set/
 
-# Check if the metadata CSV exists and then proceed
+# Check if the metadata CSV exists and if it has more than one line (excluding the header) then proceed
 csv_file="samples.meta.csv"
 if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
     # Get the first eleven lines of the metadata CSV file and save it temporarily
