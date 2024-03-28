@@ -46,7 +46,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         # Merge the new file with the combined file for chromosome 3R into a temporary file
         bcftools merge $HOME/vcf_files/combined_chr3R.vcf.gz $HOME/vcf_files/$sample_id.vcf.gz -Oz -r 3R -o $HOME/vcf_files/temp_combined_chr3R.vcf.gz || { echo "Failed to merge $sample_id.vcf.gz"; exit 1; }
 
-        # Create index for the new file
+        # Create index for the temp file
         bcftools index $HOME/vcf_files/temp_combined_chr3R.vcf.gz || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
 
         # Delete the original files
@@ -59,6 +59,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
 
     rm temp_head.csv
     rm $HOME/vcf_files/temp_combined_chr3R.vcf.gz
+    rm $HOME/vcf_files/temp_combined_chr3R.vcf.gz.csi
 else
     echo "The metadata CSV file does not exist or is empty."
     exit 1
