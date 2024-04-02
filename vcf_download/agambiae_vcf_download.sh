@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=vcf_anopheles_download_test1
-#SBATCH --output=vcf_anopheles_download_test1.out
-#SBATCH --error=vcf_anopheles_download_test1.err
+#SBATCH --job-name=agambiae_vcf_download
+#SBATCH --output=agambiae_vcf_download.out
+#SBATCH --error=agambiae_vcf_download.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=8
 #SBATCH --cpus-per-task=1
