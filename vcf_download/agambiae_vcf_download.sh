@@ -18,7 +18,7 @@ gsutil -m rsync -r gs://vo_agam_release/v3/metadata/ $HOME/vo_agam_release/v3/me
 sample_sets = ("AG1000G-CD" "AG1000G-GM-C" "AG1000G-TZ" "AG1000G-KE")
 
 
-for sample_set in "${sample_set_names[@]}"; do
+for sample_set in "${sample_sets[@]}"; do
 
     # Change directory to the appropriate metadata directory
     cd ~/vo_agam_release/v3/metadata/general/$sample_set/
