@@ -20,8 +20,6 @@ sample_sets=("AG1000G-CD" "AG1000G-GM-C" "AG1000G-TZ" "AG1000G-KE")
 
 for sample_set in "${sample_sets[@]}"; do
 
-    # Cr
-
     # Change directory to the appropriate metadata directory
     cd ~/vo_agam_release/v3/metadata/general/$sample_set/
 
