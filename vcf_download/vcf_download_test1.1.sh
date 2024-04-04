@@ -34,8 +34,8 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
     bcftools index $HOME/vcf_files/test_download/combined_chr3R.vcf.gz || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
 
     # Delete the original file
-    rm $HOME/vcf_files/test_download/$sample_id.vcf.gz
-    rm $HOME/vcf_files/test_download/$sample_id.vcf.gz.tbi
+    #rm $HOME/vcf_files/test_download/$sample_id.vcf.gz
+    #rm $HOME/vcf_files/test_download/$sample_id.vcf.gz.tbi
 
     # Read the temporary CSV file line by line starting from the third line (second sample)
     tail -n +3 temp_head.csv | while IFS=, read -r sample_id remainder; do
@@ -57,9 +57,9 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         mv $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz $HOME/vcf_files/test_download/combined_chr3R.vcf.gz
     done
 
-    rm temp_head.csv
-    rm $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz
-    rm $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz.csi
+    #rm temp_head.csv
+    #rm $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz
+    #rm $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz.csi
 else
     echo "The metadata CSV file does not exist or is empty."
     exit 1
