@@ -28,7 +28,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
     wget --no-clobber -P $HOME/vcf_files "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
 
     # Filter first sample for chromosome 3R and save the output to a new file
-    bcftools view -r 3R $HOME/vcf_files/$sample_id.vcf.gz -o $HOME/vcf_files/combined_chr3R.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
+    bcftools view -r 3R $HOME/vcf_files/$sample_id.vcf.gz -Oz -o $HOME/vcf_files/combined_chr3R.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
 
     # Create index for the new file
     bcftools index $HOME/vcf_files/combined_chr3R.vcf.gz || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
@@ -47,7 +47,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         bcftools merge $HOME/vcf_files/combined_chr3R.vcf.gz $HOME/vcf_files/$sample_id.vcf.gz -Oz -r 3R -o $HOME/vcf_files/temp_combined_chr3R.vcf.gz || { echo "Failed to merge $sample_id.vcf.gz"; exit 1; }
 
         # Create index for the temp file
-        bcftools index $HOME/vcf_files/temp_combined_chr3R.vcf.gz || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
+        bcftools index -f $HOME/vcf_files/temp_combined_chr3R.vcf.gz || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
 
         # Delete the original files
         rm $HOME/vcf_files/$sample_id.vcf.gz
