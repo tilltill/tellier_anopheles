@@ -36,7 +36,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         wget --no-clobber -P $HOME/vcf_files/test_download "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
 
         # Filter for chromosome 3R and save the output to a new file
-        #bcftools view -r 3R $HOME/vcf_files/test_download/$sample_id.vcf.gz -Oz -o $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
+        bcftools view -r 3R $HOME/vcf_files/test_download/$sample_id.vcf.gz -Oz -o $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
         
         # Merge the new file with the combined file for chromosome 3R into a temporary file
         bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge combined_chr3R.vcf.gz and ${sample_id}_chr3R.vcf.gz"; exit 1; }
