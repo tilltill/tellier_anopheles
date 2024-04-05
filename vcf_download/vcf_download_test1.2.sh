@@ -39,7 +39,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         bcftools view -r 3R $HOME/vcf_files/test_download/$sample_id.vcf.gz -Oz -o $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
         
         # Merge the new file with the combined file for chromosome 3R into a temporary file
-        bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge $sample_id.vcf.gz"; exit 1; }
+        bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge combined_chr3R.vcf.gz and ${sample_id}_chr3R.vcf.gz"; exit 1; }
 
         # Create index for the temp file
         bcftools index -f $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
