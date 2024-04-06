@@ -50,7 +50,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         # Delete the original files
         #rm $HOME/vcf_files/test_download/$sample_id.vcf.gz
         #rm $HOME/vcf_files/test_download/$sample_id.vcf.gz.tbi
-        rm $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz
+        #rm $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz
 
         # Move the temporary file to the original file for the next iteration
         mv $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz $HOME/vcf_files/test_download/combined_chr3R.vcf.gz
