@@ -14,7 +14,7 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
     # Get the first five lines (header and four samples) of the metadata CSV file and save it temporarily
     head -n 5 "$csv_file" > temp_head.csv
 
-    # Get the sample_id from the second line (first sample) of the temporary CSV file
+    # Get the sample_id from the second line (first sample) of the temporary CSV file and download vcf and tbi file
     sample_id=$(awk -F, 'NR==2 {print $1}' temp_head.csv)
     wget --no-clobber -P $HOME/vcf_files/test_download "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
     wget --no-clobber -P $HOME/vcf_files/test_download "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
@@ -35,17 +35,11 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         wget --no-clobber -P $HOME/vcf_files/test_download "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
         wget --no-clobber -P $HOME/vcf_files/test_download "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
 
-        # Filter for chromosome 3R and save the output to a new file
-        bcftools view -r 3R $HOME/vcf_files/test_download/$sample_id.vcf.gz -Oz -o $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz || { echo "Failed to filter $sample_id.vcf.gz"; exit 1; }
-        
-        # Create index for the new filtered file
-        bcftools index $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz || { echo "Failed to index ${sample_id}_chr3R.vcf.gz"; exit 1; }
-
         # Merge the new file with the combined file for chromosome 3R into a temporary file
-        bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz  -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge combined_chr3R.vcf.gz and ${sample_id}_chr3R.vcf.gz"; exit 1; }
+        bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/${sample_id}_chr3R.vcf.gz -r 3R -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge combined_chr3R.vcf.gz and ${sample_id}_chr3R.vcf.gz"; exit 1; }
 
         # Create index for the temp file
-        bcftools index -f $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz -o $HOME/vcf_files/test_download/combined_chr3R.vcf.gz.csi || { echo "Failed to index $sample_id.vcf.gz"; exit 1; }
+        bcftools index $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz -f -o  $HOME/vcf_files/test_download/combined_chr3R.vcf.gz.csi || { echo "Failed to index after $sample_id.vcf.gz was merged"; exit 1; }
 
         # Delete the original files
         #rm $HOME/vcf_files/test_download/$sample_id.vcf.gz
