@@ -37,10 +37,10 @@ if [[ -f "$csv_file" ]] && [[ $(wc -l <"$csv_file") -gt 1 ]]; then
         wget --no-clobber -P $HOME/vcf_files/test_download "https://vo_agam_output.cog.sanger.ac.uk/$sample_id.vcf.gz.tbi" || { echo "Failed to download $sample_id.vcf.gz"; exit 1; }
 
         # Create index for combined_chr3R.vcf.gz.csi 
-        bcftools index -f $HOME/vcf_files/test_download/combined_chr3R.vcf.gz   || { echo "Failed to index after $sample_id.vcf.gz was merged"; exit 1; }
+        bcftools index -f $HOME/vcf_files/test_download/combined_chr3R.vcf.gz   || { echo "Failed to index combined_chr3R.vcf.gz was merged"; exit 1; }
 
         # Merge the new file with the combined file for chromosome 3R into a temporary file
-        bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/${sample_id}.vcf.gz -r 3R -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge combined_chr3R.vcf.gz and ${sample_id}_chr3R.vcf.gz"; exit 1; }
+        bcftools merge $HOME/vcf_files/test_download/combined_chr3R.vcf.gz $HOME/vcf_files/test_download/$sample_id.vcf.gz -r 3R -Oz -o $HOME/vcf_files/test_download/temp_combined_chr3R.vcf.gz || { echo "Failed to merge combined_chr3R.vcf.gz and ${sample_id}_chr3R.vcf.gz"; exit 1; }
         
         # Delete the original files
         #rm $HOME/vcf_files/test_download/$sample_id.vcf.gz
