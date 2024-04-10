@@ -1,13 +1,5 @@
 #!/bin/bash
 
-#SBATCH --job-name=agambiae_vcf_download
-#SBATCH --output=agambiae_vcf_download.out
-#SBATCH --error=agambiae_vcf_download.err
-#SBATCH --nodes=1
-#SBATCH --ntasks=8
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=10G
-
 ### Download VCF files ###
 
 # Sync the metadata using gsutil
