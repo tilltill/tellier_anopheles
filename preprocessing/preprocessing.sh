@@ -42,4 +42,9 @@ bcftools filter -i 'AVG(DP)>10 && AVG(DP)<100' ${filename}_preprocessed.vcf.gz -
 # Index the new file
 bcftools index -f ${filename}_preprocessed.vcf.gz
 
+# Remove variants with Phred score < 30
+bcftools filter -i 'AVG(GQ)>30' ${filename}_preprocessed.vcf.gz -Oz -o ${filename}_preprocessed.vcf.gz
+
+# Index the new file
+bcftools index -f ${filename}_preprocessed.vcf.gz
 

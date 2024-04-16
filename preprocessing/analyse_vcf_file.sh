@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Path to the VCF file
-input_file = 
+input_file=~/vcf_files/AG1000G-CD_combined_chr1_2.vcf.gz 
 filename=$(basename -- "$input_file")
+filename="${filename%.*}"
 filename="${filename%.*}"
 
 # Make directory for the subset
@@ -43,5 +44,4 @@ vcftools --gzvcf $SUBSET_VCF --missing-site --out $OUT
 
 # Calculate heterozygosity and inbreeding coefficient per individual
 vcftools --gzvcf $SUBSET_VCF --het --out $OUT
-
 
