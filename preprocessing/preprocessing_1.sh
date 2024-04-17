@@ -1,6 +1,10 @@
 #!/bin/bash
 
-input_file=
+# Path to the VCF file
+input_file=~/vcf_files/AG1000G-CD_combined_chr1_2.vcf.gz 
+
+# Change to the directory
+cd ~/vcf_files
 
 # Get filename without extension or path
 filename=$(basename -- "$input_file")
