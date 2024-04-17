@@ -3,6 +3,8 @@
 VCF_IN=~/vcf_files/AG1000G-CD_combined_chr1_2.vcf.gz 
 VCF_OUT=~/vcf_files/AG1000G-CD_combined_chr1_2_filtered.vcf.gz 
 
+cd ~/vcf_files
+
 # set filters
 MAF=0.1
 MISS=0.75
@@ -12,7 +14,7 @@ MAX_DEPTH=100
 
 # perform the filtering with vcftools
 vcftools --gzvcf $VCF_IN \
---remove-indels --maf $MAF --max-missing $MISS --minQ $QUAL \
+--maf $MAF --max-missing $MISS --minQ $QUAL \
 --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
 --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
 $VCF_OUT

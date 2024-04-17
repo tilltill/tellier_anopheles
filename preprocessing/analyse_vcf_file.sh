@@ -20,6 +20,14 @@ bcftools view $input_file | vcfrandomsample -r 0.012 > ${filename}_subset.vcf
 bcftools view ${filename}_subset.vcf -Oz -o ${filename}_subset.vcf.gz
 bcftools index ${filename}_subset.vcf.gz
 
+# Remove indels and decompose the variants
+bcftools norm -m -any | \
+bcftools view -V indels ${filename}_subset.vcf.gz | \
+bcftools view -m2 -M2 -v snps -Oz -o ${filename}_subset.vcf.gz
+
+# Index the new file (no indels and decomposed)
+bcftools index -f ${filename}_subset.vcf.gz
+
 # Name of the subset VCF file
 SUBSET_VCF=~/vcf_files/${filename}_analysis/${filename}_subset.vcf.gz
 OUT=~/vcf_files/${filename}_analysis/vcftools/${filename}_subset
