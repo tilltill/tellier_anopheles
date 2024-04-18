@@ -21,3 +21,9 @@ bcftools filter -i 'AVG(GQ)>30' -Oz -o ${filename}_preprocessed.vcf.gz
 
 # Index the final file
 bcftools index -f ${filename}_preprocessed.vcf.gz
+
+# Print the number of variants in the original and filtered VCF files
+echo "Number of variants in the original VCF file:" 
+bcftools view -H $input_file | wc -l
+echo "Number of variants in the filtered VCF file:"
+bcftools view -H ${filename}_preprocessed.vcf.gz | wc -l
