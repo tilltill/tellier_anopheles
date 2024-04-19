@@ -1,6 +1,3 @@
-
-
-
 import pysam
 import gzip
 
@@ -11,7 +8,7 @@ def extract_genotypes(vcf_file):
             for sample in record.samples.values():
                 genotype = sample["GT"]
                 if genotype is not None:
-                    genotypes.extend(genotype.split('/'))
+                    genotypes.extend(genotype)
             yield record, genotypes
 
 def filter_and_save_vcf(input_vcf, output_vcf):
