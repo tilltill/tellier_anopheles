@@ -24,7 +24,7 @@ def filter_and_save_vcf(input_vcf, output_vcf):
             if len(unique_genotypes) <= 2:
                 vcf_out.write(str(record))
 
-input_vcf_file = 'input.vcf.gz'
-output_vcf_file = 'filtered.vcf.gz'
+input_vcf_file = 'AG1000G-CD_combined_chr1_2.vcf.gz'
+output_vcf_file = 'AG1000G-CD_combined_chr1_2_filtered.vcf.gz'
 
 filter_and_save_vcf(input_vcf_file, output_vcf_file)

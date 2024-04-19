@@ -6,22 +6,16 @@ input_file=
 filename=$(basename -- "$input_file")
 filename="${filename%.*}"
 
-# Remove indels 
-bcftools view -V indels $input_file -Oz -o ${filename}_preprocessed.vcf.gz
-
-# Index the new file
+# Decompose complex variants and index the file
+bcftools norm -a ${filename}_preprocessed.vcf.gz -Oz -o ${filename}_preprocessed.vcf.gz
 bcftools index -f ${filename}_preprocessed.vcf.gz
 
-# Decompose the variants
-bcftools norm -m -any ${filename}_preprocessed.vcf.gz -Oz -o ${filename}_preprocessed.vcf.gz
-
-# Index the new file
+# Remove indels 
+bcftools view -V indels ${filename}_preprocessed.vcf.gz -Oz -o ${filename}_preprocessed.vcf.gz
 bcftools index -f ${filename}_preprocessed.vcf.gz
 
 # Filter for biallelic SNPs
 bcftools view -m2 -M2 -v snps ${filename}_preprocessed.vcf.gz -Oz -o ${filename}_preprocessed.vcf.gz
-
-# Index the new file
 bcftools index -f ${filename}_preprocessed.vcf.gz
 
 # Add missingness Info
