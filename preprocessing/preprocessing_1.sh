@@ -1,14 +1,13 @@
 #!/bin/bash
 
 # Path to the VCF file
-input_file=~/vcf_files/AG1000G-CD_combined_chr1_2.vcf.gz 
+input_file=~/vcf_files/AG1000G-GM-C_combined_chr1_2.vcf.gz 
 
 # Change to the directory
 cd ~/vcf_files
 
 # Get filename without extension or path
-filename=$(basename -- "$input_file")
-filename="${filename%.*}"
+filename=$(basename "$input_file" .vcf.gz)
 
 # Merge the VCF file with the sitefilter file
 bcftools merge $input_file chr1and2_sitefilter.vcf.gz -Oz -o ${filename}_sitefilter.vcf.gz
