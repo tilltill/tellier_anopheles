@@ -65,3 +65,5 @@ for input_file in "${input_files[@]}"; do
 
     echo "Number of variants in the biallelic VCF file:"
     bcftools view -H ${filename}_sitefilter_PASS_trimmed_biallelic.vcf.gz | wc -l
+
+done
