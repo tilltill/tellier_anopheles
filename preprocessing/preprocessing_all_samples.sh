@@ -55,13 +55,10 @@ for input_file in "${input_files[@]}"; do
 
     # Print the number of variants in the original and filtered VCF files
     echo "Number of variants in the original VCF file:" 
-    bcftools view -H $input_file | wc -l
+    bcftools view -H ${filename}.vcf.gz | wc -l
 
     echo "Number of variants in the filtered VCF file:"
     bcftools view -H ${filename}_sitefilter_PASS.vcf.gz | wc -l
-
-    echo "Number of variants in the trimmed VCF file:"
-    bcftools view -H ${filename}_sitefilter_PASS_trimmed.vcf.gz | wc -l
 
     echo "Number of variants in the biallelic VCF file:"
     bcftools view -H ${filename}_sitefilter_PASS_trimmed_biallelic.vcf.gz | wc -l
