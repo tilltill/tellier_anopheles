@@ -11,13 +11,15 @@ cd ~/vcf_files
 
 for input_file in "${input_files[@]}"; do
 
+    echo "$(date): Processing $input_file"
+
     # Get filename without extension or path
     filename=$(basename "$input_file" .vcf.gz)
 
     # Merge the VCF file with the sitefilter file
     output_file=${filename}_sitefilter.vcf.gz
     if [ ! -f "$output_file" ]; then
-        bcftools merge $input_file chr1and2_sitefilter.vcf.gz -Oz -o $output_file
+        bcftools merge ${filename}.vcf.gz chr1and2_sitefilter.vcf.gz -Oz -o $output_file
         bcftools index -f $output_file
         echo "$(date): Merged VCF file with sitefilter file and indexed the new file"
     fi
