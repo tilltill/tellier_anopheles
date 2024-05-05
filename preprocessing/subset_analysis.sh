@@ -1,10 +1,8 @@
 #!/bin/bash
 
 # Path to the VCF file
-input_file=~/vcf_files/AG1000G-CD_combined_chr1_2.vcf.gz 
-filename=$(basename -- "$input_file")
-filename="${filename%.*}"
-filename="${filename%.*}"
+input_file=~/vcf_files/AG1000G-CD_combined_chr1_2_sitefilter_PASS_trimmed_biallelic 
+filename=$(basename "$input_file" .vcf.gz)
 
 # Make directory for the subset
 mkdir -p ~/vcf_files/${filename}_analysis
@@ -21,12 +19,12 @@ bcftools view ${filename}_subset.vcf -Oz -o ${filename}_subset.vcf.gz
 bcftools index ${filename}_subset.vcf.gz
 
 # Remove indels and decompose the variants
-bcftools norm -m -any | \
-bcftools view -V indels ${filename}_subset.vcf.gz | \
-bcftools view -m2 -M2 -v snps -Oz -o ${filename}_subset.vcf.gz
+#bcftools norm -m -any | \
+#bcftools view -V indels ${filename}_subset.vcf.gz | \
+#bcftools view -m2 -M2 -v snps -Oz -o ${filename}_subset.vcf.gz
 
 # Index the new file (no indels and decomposed)
-bcftools index -f ${filename}_subset.vcf.gz
+#bcftools index -f ${filename}_subset.vcf.gz
 
 # Name of the subset VCF file
 SUBSET_VCF=~/vcf_files/${filename}_analysis/${filename}_subset.vcf.gz
