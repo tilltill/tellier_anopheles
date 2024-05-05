@@ -12,7 +12,7 @@ mkdir -p ~/vcf_files/${filename}_analysis/vcftools
 cd ~/vcf_files/${filename}_analysis
 
 # Create random subsample of the VCF file
-bcftools view $input_file | vcfrandomsample -r 0.012 > ${filename}_subset.vcf
+bcftools view ${filename}.vcf.gz | vcfrandomsample -r 0.012 > ${filename}_subset.vcf
 
 # Compress and index subset
 bcftools view ${filename}_subset.vcf -Oz -o ${filename}_subset.vcf.gz
