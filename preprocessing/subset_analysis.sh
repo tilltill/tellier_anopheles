@@ -1,9 +1,7 @@
 #!/bin/bash
 
-AG1000G-CD_combined_chr1_2_sitefilter_PASS_trimmed_biallelic.vcf.gz
-
 # Path to the VCF file
-input_file=~/vcf_files/AG1000G-CD_combined_chr1_2_sitefilter_PASS_trimmed_biallelic.vcf.gz
+input_file=~/vcf_files/all_samples_PASS_trimmed_biallelic.vcf.gz
 filename=$(basename "$input_file" .vcf.gz)
 
 # Make directory for the subset
