@@ -8,6 +8,9 @@ filename=$(basename "$input_file" .vcf.gz)
 mkdir -p ~/vcf_files/${filename}_analysis
 mkdir -p ~/vcf_files/${filename}_analysis/vcftools
 
+# Copy the VCF file to the new directory
+cp $input_file ~/vcf_files/${filename}_analysis/
+
 # Change to the directory
 cd ~/vcf_files/${filename}_analysis
 
