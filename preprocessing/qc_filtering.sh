@@ -12,13 +12,13 @@ MAX_DEPTH=60
 
 # Filter the VCF file with MAC
 vcftools --gzvcf ${filename}_sitefilter_PASS_trimmed.vcf.gz \
---mac $MAC --max-missing $MISS \
---min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
---minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
-${filename}_QC_MAC.vcf.gz
+    --mac $MAC --max-missing $MISS \
+    --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
+    --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
+    ${filename}_QC_MAC.vcf.gz
 
 # Filter the VCF file without MAC
 vcftools --gzvcf ${filename}_sitefilter_PASS_trimmed.vcf.gz \
---max-missing $MISS --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
---minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
-${filename}_QC_noMAC.vcf.gz
+    --max-missing $MISS --min-meanDP $MIN_DEPTH --max-meanDP $MAX_DEPTH \
+    --minDP $MIN_DEPTH --maxDP $MAX_DEPTH --recode --stdout | gzip -c > \
+    ${filename}_QC_noMAC.vcf.gz
