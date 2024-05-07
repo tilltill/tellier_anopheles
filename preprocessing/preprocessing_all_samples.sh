@@ -49,11 +49,6 @@ for input_file in "${input_files[@]}"; do
     fi
 
 
-    #bcftools +fill-tags -- -t F_MISSING | \
-    #bcftools view -i 'F_MISSING < 0.25' | \
-    #bcftools filter -i 'AVG(DP)>10 && AVG(DP)<100' | \
-    #bcftools filter -i 'AVG(GQ)>30' -Oz -o ${filename}_preprocessed.vcf.gz
-
 
     # Print the number of variants in the original and filtered VCF files
     echo "Number of variants in the original VCF file:" 
