@@ -12,7 +12,7 @@ for input_file in ${input_files[@]}; do
 
     # Copy the VCF file to the new directory
     cd ~/vcf_files/
-    cp $input_file ~/vcf_files/${filename}_analysis/
+    cp ${filename}.vcf.gz ~/vcf_files/${filename}_analysis/
 
     # Change to the directory
     cd ~/vcf_files/${filename}_analysis
