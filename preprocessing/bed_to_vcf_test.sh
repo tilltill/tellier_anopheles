@@ -23,6 +23,6 @@ for input_file in ${input_files[@]}; do
     bcftools view -H ${filename}.vcf.gz | wc -l
     
     echo "Number of variants in the test file:"
-    bcftools view -H ${filename}_LD.vcf.gz | wc -l
+    bcftools view -H ${filename}_test.vcf.gz | wc -l
 
 done
