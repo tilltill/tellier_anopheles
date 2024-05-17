@@ -4,7 +4,7 @@ input_files=("$HOME/vcf_files/all_samples_QC_MAC.vcf.gz")
 
 
 # Change to the directory
-cd ~/vcf_files
+cd $HOME/vcf_files
 
 # Convert the VCF file to PLINK format and back to vcf.gz format to test if the conversion works
 
