@@ -48,8 +48,6 @@ for input_file in "${input_files[@]}"; do
         echo "$(date): Kept only biallelic SNPs and indexed the new file"
     fi
 
-
-
     # Print the number of variants in the original and filtered VCF files
     echo "Number of variants in the original VCF file:" 
     bcftools view -H ${filename}.vcf.gz | wc -l
